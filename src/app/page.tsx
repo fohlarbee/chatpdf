@@ -56,11 +56,19 @@ export default async function Home() {
                   </Link>
                 )
                 }
+                
                 <div className="w-full mt-4 self-center border rounded-lg shadow-lg hidden md:flex">
                    <Image alt="" src='/HeroSection_image.png' width={600} height={250}
                     className="w-full rounded-lg border border-white border-opacity-5 shadow-lg"
                    />
                 </div>
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-600">Developer</p>
+                  <Link href={process.env.PORTFOLIO_URL as string}>
+                    <p className="text-blue-600 hover:underline">@fohlarbee</p>
+                  </Link>
+               </div>
+
 
               </div>
           </div> 

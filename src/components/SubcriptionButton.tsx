@@ -20,7 +20,7 @@ const SubcriptionButton = ({isPro} :{isPro: boolean}) => {
     }
 
   return (
-    <Button disabled={isLoading} onClick={handleSubscription} variant='outline'>
+    <Button disabled={isLoading} onClick={handleSubscription} variant='destructive'>
         {isPro ? 'Manage Subscriptions' : 'Get Pro'}
     </Button>
   )
