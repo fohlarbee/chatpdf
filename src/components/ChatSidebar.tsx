@@ -48,7 +48,7 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
         <div className='absolute bottom-10 left-4 w-full'>
             <div className='flex items-center gap-2 text-sm text-slate-500 flex-wrap mb-2'>
                 <Link href='/'>Home</Link>
-                <Link href={process.env.GITHUB_SOURCE as string}>Source</Link>
+                <Link href={process.env.NEXT_PUBLIC_GITHUB_SOURCE as string}>Source</Link>
                 <Link href='/sign-out'>Sign Out</Link>
 
             </div>

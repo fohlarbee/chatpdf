@@ -25,6 +25,7 @@ export default async function Home() {
     if (firstChat) firstChat = firstChat[0];
   }
 
+
   
   return (
    <div className="w-screen min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
@@ -64,7 +65,7 @@ export default async function Home() {
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-sm text-gray-600">Developer</p>
-                  <Link href={process.env.PORTFOLIO_URL as string}>
+                  <Link href={process.env.NEXT_PUBLIC_PORTFOLIO_URL as string}>
                     <p className="text-blue-600 hover:underline">@fohlarbee</p>
                   </Link>
                </div>

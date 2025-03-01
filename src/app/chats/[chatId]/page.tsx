@@ -9,9 +9,7 @@ import ChatPageClient from '@/components/ChatPageClient';
 
   
  
-// type PageProps = {
-//   params: { chatId: string }
-// };
+
 
   interface AuthResponse {
     userId: string | null;
@@ -23,6 +21,7 @@ import ChatPageClient from '@/components/ChatPageClient';
     const { chatId } = params;
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
+    console.log('chatId', chatId)
 
     const _chats = (await db.select().from(chats).where(eq(chats.userId, userId))) as DrizzleChat[];
     if (!_chats) return redirect('/');
