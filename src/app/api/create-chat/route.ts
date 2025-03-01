@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { loadAzureBlobIntoPinecone } from "@/lib/pinecone";
 import { auth } from "@clerk/nextjs/server";
-import { v4 as uuid4 } from "uuid";
+// import { v4 as uuid4 } from "uuid";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -19,11 +19,11 @@ export async function POST(req: Request) {
             pdfName: fileName,
             pdfUrl,
             userId,
-            id: parseInt(uuid4(), 16)
          }).returning({insertedId: chats.id});
         return NextResponse.json({chatId: chatId[0].insertedId}, {status: 200});  
     } catch (error) {
         if (error instanceof Error){ 
+            console.log(error)
             return NextResponse.json(error.message, {status: 500});
         }
     }
