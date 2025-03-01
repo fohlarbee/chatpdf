@@ -8,7 +8,7 @@ import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
   
   const ChatPage = async({ params }: {params:{chatId: string}}) => {
-    const {chatId} = await params;
+    const {chatId} = params;
     const {userId} = await auth();
     if(!userId) return redirect('/sign-in');
 
