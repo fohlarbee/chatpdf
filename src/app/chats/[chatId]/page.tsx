@@ -7,29 +7,39 @@ import { eq } from 'drizzle-orm';
 import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
   
-  const ChatPage = async({ params }: {params:{chatId: string}}) => {
-    const {chatId} = params;
-    const {userId} = await auth();
-    if(!userId) return redirect('/sign-in');
+  interface Params {
+    chatId: string;
+  }
 
-    const _chats = await db.select().from(chats).where(eq(chats.userId, userId)) as DrizzleChat[];
-    if(!_chats) return redirect('/');
-    if(!_chats.find((chat) => chat.id === parseInt(chatId))) return redirect('/');
+  interface Prop {
+    params: Params;
+  }
+
+  interface AuthResponse {
+    userId: string | null;
+  }
+
+  const ChatPage = async ({ params }: Prop) => {
+    const { chatId } = params;
+    const { userId }: AuthResponse = await auth();
+    if (!userId) return redirect('/sign-in');
+
+    const _chats = (await db.select().from(chats).where(eq(chats.userId, userId))) as DrizzleChat[];
+    if (!_chats) return redirect('/');
+    if (!_chats.find((chat) => chat.id === parseInt(chatId))) return redirect('/');
 
     const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
-    if(!currentChat) return redirect('/');
+    if (!currentChat) return redirect('/');
     const isPro = await checkSubscription();
     return (
-     <ChatPageClient
-     chatId={parseInt(chatId)}
-     chats={_chats}
-     currentChat={currentChat}
-     isPro={isPro}
-
-
-     />
-    )
-  } 
+      <ChatPageClient
+        chatId={parseInt(chatId)}
+        chats={_chats}
+        currentChat={currentChat}
+        isPro={isPro}
+      />
+    );
+  };
 
   // export const getServerSideProps: GetServerSideProps = async (context) => {
   //   const {chatId} = context.params as {chatId: string};
