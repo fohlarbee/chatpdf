@@ -7,18 +7,18 @@ import { eq } from 'drizzle-orm';
 import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
 
-  
- 
-type PageProps = {
-  params: { chatId: string }
-};
 
   interface AuthResponse {
     userId: string | null;
   }
 
-  const ChatPage = async (props: PageProps) => {
-    const { chatId } = props.params;
+  const ChatPage = async ({
+    params,
+  }: {
+    params: { chatId: string } | Promise<{ chatId: string }>;
+  }) => {
+    const resolvedParams = await Promise.resolve(params);
+    const { chatId } = resolvedParams;   
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
 
