@@ -7,20 +7,15 @@ import { eq } from 'drizzle-orm';
 import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
   
-  interface Params {
-    chatId: string;
-  }
+ 
 
-  interface Prop {
-    params: Params;
-  }
 
   interface AuthResponse {
     userId: string | null;
   }
 
-  const ChatPage = async ({ params }: Prop) => {
-    const { chatId } = params;
+  const ChatPage = async ({ params }) => {
+    const { chatId } = await params;
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
 
