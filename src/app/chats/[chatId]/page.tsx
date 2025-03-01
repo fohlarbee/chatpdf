@@ -9,14 +9,16 @@ import ChatPageClient from '@/components/ChatPageClient';
 
   
  
-
+type PageProps = {
+  params: { chatId: string }
+};
 
   interface AuthResponse {
     userId: string | null;
   }
 
-  const ChatPage = async ({ params }: { params: { chatId: string } }) => {
-    const { chatId } = await params;
+  const ChatPage = async (props: PageProps) => {
+    const { chatId } = props.params;
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
 
