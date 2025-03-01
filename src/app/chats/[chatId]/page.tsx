@@ -6,6 +6,7 @@ import { chats, DrizzleChat } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
+
   
  
 
@@ -14,7 +15,7 @@ import ChatPageClient from '@/components/ChatPageClient';
     userId: string | null;
   }
 
-  const ChatPage = async ({ params }) => {
+  const ChatPage = async ({ params }: { params: { chatId: string } }) => {
     const { chatId } = await params;
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
