@@ -104,3 +104,10 @@ npx drizzle-kit migrate-->
 
 
 ``` -->
+
+<!-- 
+    1. verify transaction
+    2. Webhook
+    3. Modify subscription btn
+    4. Limit non-pro user to just 3 pdf per upload
+ -->

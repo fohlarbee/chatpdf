@@ -9,7 +9,9 @@ const MessageList = ({messages, isLoading}: {messages: Message[], isLoading: boo
         <Loader2 className='w-6 h-6 animate-spin'/>
 
     </div>
-    if (!messages || messages.length === 0) return <div>No messages</div>
+    if (!messages || messages.length === 0) return <div
+     className=''>
+        No messages</div>
 
   return (
     <div className='flex flex-col gap-2 px-4 mb-20 z-20'>
