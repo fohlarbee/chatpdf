@@ -41,7 +41,7 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: num
   },[messages])
 
   return (
-    <div className='max-h-full overflow-scroll' id='message-container'>
+    <div className='relative max-h-screen h-screen overflow-scroll bg-red-200' id='message-container'>
         {/* header */}
         <div className="sticky top-0 inset-x-0 p-2 bg-[#eee] h-fit flex flex-row z-50 border-b-4 shadow-lg border border-opacity-5">
               <AlignJustify className='ml-1 cursor-pointer md:hidden'
@@ -51,11 +51,14 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: num
         </div>
 
         {/* messages list */}
-        <div className='relative max-h-screen h-screen'>
+        <div className=''>
           <MessageList messages={messages} isLoading={isLoading}/>
 
-          <form onSubmit={handleSubmit}
-          className={` sm:fixed md:sticky md:z-50 bottom-2 mb-1 inset-x-0 p-2 bg-[#fff] py-4`} >
+         
+
+        </div>
+        <form onSubmit={handleSubmit}
+          className={`sticky z-50 overflow-hidden sm:fixed md:sticky md:z-50 bottom-2 mb-1 inset-x-0 p-2 py-4 bg-[#fff]`} >
             <div className="flex">
                 <Input
               value={input}
@@ -70,8 +73,6 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: num
               </Button>
             </div>
           </form>
-
-        </div>
        
     </div>
   )

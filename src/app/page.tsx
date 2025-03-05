@@ -1,4 +1,3 @@
-// import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
@@ -6,17 +5,20 @@ import { auth,  } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { ArrowRightIcon, LogIn } from 'lucide-react'
 import FileUpload from "@/components/FileUpload";
-import { checkSubscription } from "@/lib/subscriptions";
-import SubcriptionButton from "@/components/SubcriptionButton";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import Image from "next/image";
+import { checkPaystackSubscription } from "@/lib/paystackSubscription";
+import PaystackSubcriptionButton from "@/components/PaystackSubscriptionBtn";
+import { limitNonProUser } from "@/lib/limitNonProUser";
 
 export default async function Home() {
   const {userId} = await auth();
   const isAuth = !!userId;
-  const isPro = await checkSubscription();
+  const isPro = await checkPaystackSubscription();
+  const userLimitReached = await limitNonProUser();
+  
   let firstChat;
   if (userId){
     firstChat = await db.select()
@@ -43,12 +45,12 @@ export default async function Home() {
                          <Button> Go to Chats <ArrowRightIcon className="ml-2"/></Button>
                         </Link>
                     )}
-                     {isAuth && ( <div className="ml-3"><SubcriptionButton isPro={isPro}/></div>)}
+                     {isAuth && ( <div className="ml-3"><PaystackSubcriptionButton isPro={isPro}/></div>)}
 
               </div>
               <p className="max-w-xl mt-2 text-lg text-slate-600">Join millions of students, research experts and proffessionals to instantly answer questions and understand research with AI</p>
               <div className=" w-full mt-4">
-                {isAuth ? (<FileUpload/>)
+                {isAuth ? (<FileUpload userLimitReached={userLimitReached}/>)
                 :(
                   <Link href='/sign-in'>
                     <Button>Login to get started
@@ -57,7 +59,7 @@ export default async function Home() {
                   </Link>
                 )
                 }
-                
+          
                 <div className="w-full mt-4 self-center border rounded-lg shadow-lg hidden md:flex">
                    <Image alt="" src='/HeroSection_image.png' width={600} height={250}
                     className="w-full rounded-lg border border-white border-opacity-5 shadow-lg"

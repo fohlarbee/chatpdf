@@ -4,8 +4,8 @@ import React   from 'react';
 import { db } from "@/lib/db";
 import { chats, DrizzleChat } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-import { checkSubscription } from '@/lib/subscriptions';
 import ChatPageClient from '@/components/ChatPageClient';
+import { checkPaystackSubscription } from '@/lib/paystackSubscription';
 
   
  
@@ -29,7 +29,8 @@ import ChatPageClient from '@/components/ChatPageClient';
 
     const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
     if (!currentChat) return redirect('/');
-    const isPro = await checkSubscription();
+    // const isPro = await checkSubscription();
+    const isPro = await checkPaystackSubscription();
     return (
       <ChatPageClient
         chatId={parseInt(chatId)}

@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 
-const FileUpload = () => {
+const FileUpload = ({userLimitReached}: {userLimitReached:boolean}) => {
     const router = useRouter();
     const [uploading, setUploading] = React.useState(false);
     const {mutate,isPending} = useMutation({
@@ -31,6 +31,9 @@ const FileUpload = () => {
             }
             try {
                 setUploading(true);
+                if (userLimitReached) 
+                    return toast.error('Please ugrade to Pro...limit reached');
+                   
                 const data = await uploadPdfToAzure(
                     await file.arrayBuffer(),
                      file.name

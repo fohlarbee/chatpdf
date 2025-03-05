@@ -1,4 +1,4 @@
-import { createPaymentLink } from "@/lib/paystack";
+import { createPaymentLink} from "@/lib/paystack";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -14,6 +14,7 @@ export async function POST() {
             email,
             metadata: {
                 email,
+                userId,
             }
         });
         // console.log('paystack payment obj', resOBJ);
@@ -22,3 +23,4 @@ export async function POST() {
         console.error(error);
         return NextResponse.json('Error creating payment link', {status: 500});
 }}
+
