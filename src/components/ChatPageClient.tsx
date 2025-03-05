@@ -18,7 +18,7 @@ const ChatPageClient: React.FC<ChatPageClientProps> = ({ chats, chatId, currentC
   return (
     <div className='flex max-h-screen overflow-scroll'>
       <div className="flex w-full max-h-screen overflow-scroll">
-        <div className={`md:flex-[1] max-w-xs z-30 ${sidebarVisible ? 'flex' : 'hidden'} md:flex`}>
+        <div className={`md:flex-[1] max-w-xs z-30 ${sidebarVisible ? 'flex' : 'hidden'} md:flex z-50`}>
           <ChatSidebar chats={chats} chatId={chatId} isPro={isPro} />
         </div>
         <div className={`max-h-screen p-4 overflow-scroll md:flex-[5] hidden lg:flex ${sidebarVisible ? 'flex flex-[5]' : ''}`}>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { MessageCircle, PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import SubcriptionButton from "@/components/SubcriptionButton";
+import PaystackSubcriptionButton from './PaystackSubscriptionBtn';
 
 
 type Props = {
@@ -16,9 +16,21 @@ type Props = {
 
 const ChatSidebar = ({chats, chatId, isPro}: Props) => {
 
-    
+    // const handlePaystack = async () => {
+    //     try {
+    //         const res = await axios.post('/api/paystack') as {data:{paymentLink: string, reference: string}};
+    //         console.log('paystack res', res);
+
+    //         window.location.href = res.data.paymentLink;
+            
+    //     } catch (error) {
+    //         console.error(error);
+            
+    //     }
+    // }
+   
   return (
-    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900'>
+    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 '>
         <Link href='/'>
         <Button className='w-full border border-[#fff] border-dashed mb-4'>
             <PlusCircle className='mr-2 w-4 h-4'/>
@@ -52,7 +64,11 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                 <Link href='/sign-out'>Sign Out</Link>
 
             </div>
-           <SubcriptionButton isPro={isPro}/>
+           <PaystackSubcriptionButton isPro={isPro}/>
+           {/* <Button onClick={handlePaystack}>
+                Test Paystack
+           </Button> */}
+          
 
         </div>
     </div>

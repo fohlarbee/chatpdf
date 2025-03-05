@@ -30,3 +30,13 @@ export const userSubscriptions = pgTable('user_subscriptions', {
     stripePriceId: varchar('stripe_price_id', {length:256}),
     stripeCurrentPeriodEnd: timestamp('stripe_current_period_end'),
 });
+
+export const usersPaystackSubscriptions = pgTable('users_paystack_subscriptions', {
+    id: varchar('id', {length:256}).primaryKey(),
+    userId: varchar('user_id', {length:256}).notNull().unique(),
+    paystackReference: varchar('paystack_reference', {length:256}).notNull().unique(),
+    paystackCustomerId: varchar('paystack_customer_id', {length:256}).notNull().unique(),
+    // paystackSubscriptionId: varchar('paystack_subscription_id', {length:256}).notNull().unique(),
+    paystackStatus: text('paystack_status').notNull(),
+    paystackCurrentPeriodEnd: timestamp('paystack_current_period_end').notNull()
+});
