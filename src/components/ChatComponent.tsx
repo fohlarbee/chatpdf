@@ -41,13 +41,13 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: num
   },[messages])
 
   return (
-    <div className='relative max-h-screen h-screen overflow-scroll bg-red-200' id='message-container'>
+    <div className='relative max-h-screen h-screen overflow-scroll' id='message-container'>
         {/* header */}
         <div className="sticky top-0 inset-x-0 p-2 bg-[#eee] h-fit flex flex-row z-50 border-b-4 shadow-lg border border-opacity-5">
               <AlignJustify className='ml-1 cursor-pointer md:hidden'
               onClick={handleSideBar}
               />
-              <h3 className='sticky text-xl font-bold ml-2 w-full  md:text-center'> Chat</h3>
+              <h3 className='sticky text-xl font-bold ml-2 w-full  md:text-center'>Chat</h3>
         </div>
 
         {/* messages list */}
