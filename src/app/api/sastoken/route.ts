@@ -14,13 +14,15 @@ const AZURE_STORAGE_CONTAINER_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTA
 const generateSASToken = async (fileName: string) => {
     const sharedKeyCredential = new StorageSharedKeyCredential(AZURE_STORAGE_ACCOUNT_NAME, AZURE_STORAGE_ACCOUNT_KEY);
 
+    const expiresOn = new Date();
+    expiresOn.setMonth(expiresOn.getMonth() + 3);
 
     const sasToken = generateBlobSASQueryParameters({
         containerName: AZURE_STORAGE_CONTAINER_NAME,
         blobName: fileName,
         permissions: ContainerSASPermissions.parse("racwd"),
         startsOn: new Date(),
-        expiresOn: new Date(new Date().valueOf() + 7 * 24 * 3600 * 1000) // 7 days
+        expiresOn: expiresOn,
     }, sharedKeyCredential).toString();
 
     return sasToken;
