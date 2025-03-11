@@ -81,11 +81,12 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                             {`${chat.pdfName.slice(0, 20)}...`}
                             {loading && chat.id === chatId
                             ? <Loader2 className='size-6 ml-2 animate-spin' />
-                            : ( <Trash2 onClick={() => setOpen(true)}
+                            : (chats.indexOf(chat) !== 0 && (
+                                <Trash2 onClick={() => setOpen(true)}
                                  className={cn('ml-2 text-red-300 inline-flex opacity-50 hover:opacity-100', {
                                      'animate-spin': loading && chat.id === chatId
-                                 })} color='#ff6347'/>)
-                            }
+                                 })} color='#ff6347'/>
+                            ))}
                         </p>
                     </div>
                 </Link>
