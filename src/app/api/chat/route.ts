@@ -54,7 +54,7 @@ export async function POST(req: Request){
                   systemMessage,
                   ...messages.filter((m: Message) => m.role ==='user'),
                 ],
-                temperature: 0.3,
+                temperature: 0.7,
                 onStepFinish: async(partialCompletion) => {
                   aiResponse += partialCompletion.text;
 
@@ -110,58 +110,3 @@ export async function POST(req: Request){
 }
 }
 
-
-// import { CohereClientV2 } from 'cohere-ai';
-// import { NextResponse } from 'next/server';
-// import { createDataStreamResponse } from 'ai';
-
-// export const runtime = 'edge';
-
-// const cohere = new CohereClientV2({
-//   token: process.env.COHEREAI_API_KEY,
-// });
-
-// export async function POST(req: Request) {
-//   try {
-//     const { messages } = await req.json();
-    
-//     return createDataStreamResponse({
-//       execute: async (dataStream) => {
-//         // Optional: Write an initial message to the client
-//         dataStream.writeData('initialized call\n');
-
-//         // Start the chat stream from Cohere
-//         const stream = await cohere.chatStream({
-//           model: 'command-r7b-12-2024',
-//           messages,
-//           temperature: 0.7,
-//         });
-
-//         // Iterate over the streaming chat events
-//         for await (const chatEvent of stream) {
-//           if (chatEvent.type === 'content-delta') {
-//             // Extract the text from the event delta (adjust the property path as needed)
-//             const chunk = chatEvent.delta?.message?.content?.text;
-//             // console.log('chunk', chunk);
-//             if (chunk) {
-//               // Write this chunk to the stream
-//               dataStream.writeData(chunk);
-//               console.log(dataStream.writeData(chunk));
-//             }
-//           }
-//         }
-
-//         // Write a final message when the stream is done
-//         dataStream.writeData('\ncall completed');
-//       },
-//       onError: (error) => {
-//         console.error('Streaming error:', error);
-//         // Optionally, return a custom error message to the client
-//         return error instanceof Error ? error.message : String(error);
-//       },
-//     });
-//   } catch (error) {
-//     console.error('POST handler error:', error);
-//     throw new Error('Error getting streams');
-//   }
-// }

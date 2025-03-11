@@ -40,13 +40,15 @@ export async function loadAzureBlobIntoPinecone(fileName: string){
     }));
     // 2. Split and segment the PDF
     const singlePage = await Promise.all(doc.map(page => prepareDocument(page)));
+    // console.log('singlePage', singlePage);
 
     // 3. Vectorize and embed individual documents
     const vectors = await Promise.all(singlePage.flat().map(page => embedDocument(page)));
-    // 4. Uplaod to Pinconedb
+    // 4. Upload to Pinconedb
     const pinconeIndex =  pc.index('chatpdf', process.env.PINECONE_HOSTNAME);
 
     const namespace = convertToAscii(fileName);
+    console.log('namespace', namespace);
     await pinconeIndex.namespace(namespace).upsert(
      await Promise.all( vectors.map(async v => ({
         id: v.id,
