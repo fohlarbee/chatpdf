@@ -3,9 +3,12 @@ import React from 'react';
 import { DrizzleChat } from '@/lib/db/schema';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { MessageCircle, PlusCircle } from 'lucide-react';
+import { Loader2, MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PaystackSubcriptionButton from './PaystackSubscriptionBtn';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
 
 type Props = {
@@ -15,21 +18,47 @@ type Props = {
 }
 
 const ChatSidebar = ({chats, chatId, isPro}: Props) => {
+    const [loading, setLoading] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
-    // const handlePaystack = async () => {
-    //     try {
-    //         const res = await axios.post('/api/paystack') as {data:{paymentLink: string, reference: string}};
-    //         console.log('paystack res', res);
+   
+    const handleDeleteChat = async (chatId: number) => {
+        try {
+            setLoading(true);
+            const res = await axios.delete('/api/chat', {data: {chatId}});
+            console.log(res.data);
+            toast.success(res.data.message);
+            window.location.reload();
 
-    //         window.location.href = res.data.paymentLink;
-            
-    //     } catch (error) {
-    //         console.error(error);
-            
-    //     }
-    // }
+        } catch (error) {
+            if (error instanceof Error)
+              toast.error(error.message || 'An error occurred');
+        }
+        finally{
+            setLoading(false);
+        }
+    }
    
   return (
+    <>
+     <Dialog open={open} onOpenChange={setOpen}>
+              <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Are you sure you want to delete this chat?</DialogTitle>
+                    <DialogDescription>
+                        Both the chat and the messages will be deleted permanently.
+                    </DialogDescription>
+                   
+                </DialogHeader>
+                <DialogFooter className='sm:justify-end'>
+                        <DialogClose  asChild>
+                             <Button type='button' variant='destructive' onClick={() => handleDeleteChat(chatId)}>Delete</Button>
+
+
+                        </DialogClose>
+                    </DialogFooter>
+              </DialogContent>
+          </Dialog>
     <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 '>
         <Link href='/'>
         <Button className='w-full border border-[#fff] border-dashed mb-4'>
@@ -48,8 +77,15 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                     })}
                     >
                         <MessageCircle className='mr-2'/>
-                        <p className='w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis'>
-                            {chat.pdfName}
+                        <p className='w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis flex justify-between'>
+                            {`${chat.pdfName.slice(0, 20)}...`}
+                            {loading && chat.id === chatId
+                            ? <Loader2 className='size-6 ml-2 animate-spin' />
+                            : ( <Trash2 onClick={() => setOpen(true)}
+                                 className={cn('ml-2 text-red-300 inline-flex opacity-50 hover:opacity-100', {
+                                     'animate-spin': loading && chat.id === chatId
+                                 })} color='#ff6347'/>)
+                            }
                         </p>
                     </div>
                 </Link>
@@ -72,6 +108,9 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
 
         </div>
     </div>
+    
+    </>
+
   )
 }
 

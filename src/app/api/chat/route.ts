@@ -5,6 +5,7 @@ import { chats, messages as _messages } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { getContext } from '@/lib/context';
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 
 // export const runtime = 'edge';
    
@@ -108,5 +109,26 @@ export async function POST(req: Request){
     }
     
 }
+}
+
+
+export async function DELETE(req: Request){
+  const {userId} = await auth();
+  if (!userId)
+      return NextResponse.json({error: "Unauthorized"}, {status: 401});
+
+  try {
+      const {chatId} = await req.json();
+      await db.delete(_messages).where(eq(_messages.chatId, chatId));
+      await db.delete(chats).where(eq(chats.id, chatId));
+      return NextResponse.json({message: "Chat deleted successfullyy"}, {status: 200});
+  } catch (error) {
+      if (error instanceof Error){
+          console.log(error);
+          return NextResponse.json(error.message, {status: 500}); 
+      }
+  
+  }
+
 }
 
