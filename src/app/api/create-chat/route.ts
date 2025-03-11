@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { loadAzureBlobIntoPinecone } from "@/lib/pinecone";
 import { auth } from "@clerk/nextjs/server";
-// import { v4 as uuid4 } from "uuid";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -29,3 +28,4 @@ export async function POST(req: Request) {
     }
 
 }
+
