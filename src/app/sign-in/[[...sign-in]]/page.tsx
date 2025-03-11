@@ -3,8 +3,8 @@ import { SignIn } from "@clerk/nextjs";
 export default function Page() {
   // console.log('in signin')
   return (
-    <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-300'>
-      <SignIn/>page
+    <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+      <SignIn/>
     </div>
   )
 }

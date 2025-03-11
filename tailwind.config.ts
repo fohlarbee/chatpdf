@@ -58,12 +58,12 @@ export default {
   		},
 		  keyframes: {
 			slide: {
-			  '0%': { transform: 'translateX(-100%)' }, // Start offscreen (left)
-			  '100%': { transform: 'translateX(500%)' } // Move offscreen (right)
+			  '0%': { transform: 'translateX(500%)' }, // Start offscreen (right)
+			  '100%': { transform: 'translateX(-500%)' } // Move offscreen (left)
 			}
 		  },
 		  animation: {
-			slide: 'slide 18s linear infinite' // Adjust speed as needed
+			slide: 'slide 22s linear infinite' // Adjust speed as needed
 		  }
   	}
   },
