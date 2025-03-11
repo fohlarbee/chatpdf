@@ -36,10 +36,13 @@ export async function  getMatchesFromEmbeddings(embeddings: Embeddings, fileName
 
 export async function getContext(query: string, fileName: string){
     const embeddings = await getEmbeddings(query)  as number[][] | { float: number[] };
+
     
     const matches = await getMatchesFromEmbeddings(embeddings, fileName);
+    // console.log('matches', matches);
 
     const qualifyingDocs = matches.filter(match => match.score && match.score >= 0.2);
+    // console.log('qualifyingDocs', qualifyingDocs);
 
     type MetaData = {
         text: string,
@@ -47,5 +50,6 @@ export async function getContext(query: string, fileName: string){
     }
 
     const docs = qualifyingDocs.map(match => (match.metadata as MetaData).text);
+    // console.log('docs', docs);
     return docs.join('\n').substring(0, 3000);
 }

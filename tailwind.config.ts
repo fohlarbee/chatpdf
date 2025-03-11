@@ -55,7 +55,16 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		  keyframes: {
+			slide: {
+			  '0%': { transform: 'translateX(-100%)' }, // Start offscreen (left)
+			  '100%': { transform: 'translateX(500%)' } // Move offscreen (right)
+			}
+		  },
+		  animation: {
+			slide: 'slide 18s linear infinite' // Adjust speed as needed
+		  }
   	}
   },
   plugins: [require("tailwindcss-animate")],

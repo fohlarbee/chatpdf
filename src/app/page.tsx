@@ -31,6 +31,10 @@ export default async function Home() {
   
   return (
    <div className="w-screen min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
+       <div className="overflow-hidden w-full h-10 bg-gray-700 flex items-center z-50">
+          <p className="text-white text-lg font-semibold animate-slide whitespace-nowrap px-4">
+          ⚠️ ChatiePDF currently may not perform well on PDFs over 20 pages and does not support OCR.</p>
+      </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center text-center">
               <div className="flex items-center text-center flex-col ">
