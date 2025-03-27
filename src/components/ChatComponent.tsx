@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import {Message} from 'ai'
 
-const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: number, setSidebarVisible: (visible: boolean) => void, sidebarVisible:boolean}) => {
+const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: string, setSidebarVisible: (visible: boolean) => void, sidebarVisible:boolean}) => {
   const {data, isLoading} = useQuery({
     queryKey: ['chat', chatId],
     queryFn: async () => {

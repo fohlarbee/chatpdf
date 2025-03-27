@@ -1,24 +1,23 @@
 import { db } from "@/lib/db";
 import { usersPaystackSubscriptions } from "@/lib/db/schema";
 import { verifyPayment } from "@/lib/paystack";
+import { auth} from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function POST(req:Request){
     try {
         const body = await req.json();
-        // const bodyText = await req.text();
 
-        console.log(body);
         const {reference} = body;
-        // const {userId}  = await auth();
+        const {userId}  = await auth();
         // const user = await currentUser();
-        // if (!userId) return NextResponse.json({error:'Unauthorized'}, {status:401});
+        if (!userId) return NextResponse.json({error:'Unauthorized'}, {status:401});
     
         const verificationResult = await verifyPayment(reference);
         if (!verificationResult || verificationResult.status !== 'success') {
             return NextResponse.json({error: 'Payment verification failed'}, {status:400});
         }
-        console.log('verificationResult', verificationResult);
+        // console.log('verificationResult', verificationResult);
 
 
         const currentDate = new Date();

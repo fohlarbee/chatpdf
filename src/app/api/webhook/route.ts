@@ -36,6 +36,7 @@ export async function POST(req: Request){
             return NextResponse
                 .json({error:'User not found'}, {status:400});
         await db.insert(userSubscriptions).values({
+            id: subscription.id,
             userId: session.metadata.userId,
             stripeCustomerId: subscription.customer as string,
             stripeSubscriptionId: subscription.id,

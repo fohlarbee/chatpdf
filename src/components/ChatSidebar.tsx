@@ -3,17 +3,18 @@ import React from 'react';
 import { DrizzleChat } from '@/lib/db/schema';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { Loader2, MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
+import { EllipsisIcon, Loader2, MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import PaystackSubcriptionButton from './PaystackSubscriptionBtn';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
 
 type Props = {
     chats: DrizzleChat[];
-    chatId: number;
+    chatId: string;
     isPro: boolean;
 }
 
@@ -26,7 +27,6 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
         try {
             setLoading(true);
             const res = await axios.delete('/api/chat', {data: {chatId}});
-            console.log(res.data);
             toast.success(res.data.message);
             window.location.reload();
 
@@ -59,7 +59,7 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                     </DialogFooter>
               </DialogContent>
           </Dialog>
-    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 '>
+    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 sticky z-500'>
         <Link href='/'>
         <Button className='w-full border border-[#fff] border-dashed mb-4'>
             <PlusCircle className='mr-2 w-4 h-4'/>
@@ -71,7 +71,7 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
             {chats.map((chat) => (
                 <Link key={chat.id} href={`/chats/${chat.id}`}>
                     <div
-                    className={cn('rounded-lg p-3 text-slate-300 flex items-center', {
+                    className={cn('rounded-lg p-3 text-slate-300 flex items-center group', {
                         'bg-blue-600 text-[#fff]': chat.id === chatId,
                         'hover:text-[#fff]': chat.id !== chatId
                     })}
@@ -82,10 +82,33 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                             {loading && chat.id === chatId
                             ? <Loader2 className='size-6 ml-2 animate-spin' />
                             : (chats.indexOf(chat) !== 0 && (
-                                <Trash2 onClick={() => setOpen(true)}
-                                 className={cn('ml-2 text-red-300 inline-flex opacity-50 hover:opacity-100', {
-                                     'animate-spin': loading && chat.id === chatId
-                                 })} color='#ff6347'/>
+                                <Popover>
+                                     <PopoverTrigger>
+                                        <EllipsisIcon className='ml-auto text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity 
+                                        duration-200 size-5'/>
+                                     </PopoverTrigger>
+                                     <PopoverContent className='w-32'>
+                                        <div className='flex justify-center w-full px-3'>
+                                            <div
+                                            onClick={() => setOpen(true)}
+                                            className='flex justify-between cursor-pointer'>
+                                                <Trash2 
+                                                className={cn('text-red-500 size-5 mr-2 hover:opacity-100 text-left flex', {
+                                                    'animate-spin': loading && chat.id === chatId
+                                                })} />
+                                            <p className='hover:bg-[#fff] text-red-500'>Delete</p>
+                                            </div>
+                                           
+
+                                        </div>
+                                        
+                                     </PopoverContent>
+
+                                </Popover>
+                                // <Trash2 onClick={() => setOpen(true)}
+                                //  className={cn('ml-2 text-red-300 inline-flex opacity-50 hover:opacity-100', {
+                                //      'animate-spin': loading && chat.id === chatId
+                                //  })} color='#ff6347'/>
                             ))}
                         </p>
                     </div>

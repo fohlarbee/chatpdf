@@ -7,7 +7,7 @@ import { DrizzleChat } from '@/lib/db/schema';
 
 interface ChatPageClientProps {
   chats: DrizzleChat[];
-  chatId: number;
+  chatId: string;
   currentChat: DrizzleChat;
   isPro: boolean;
 }

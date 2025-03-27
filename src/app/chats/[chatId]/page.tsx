@@ -14,26 +14,28 @@ import { checkPaystackSubscription } from '@/lib/paystackSubscription';
   interface AuthResponse {
     userId: string | null;
   }
+  type Props  =  {
+    params: Promise<{chatId: string}>;
+  }
 
   /* eslint-disable */
 
-  const ChatPage = async ({ params }: any) => {
-    const { chatId } = params;
+  const ChatPage = async ({ params }: Props) => {
+    const { chatId } = await params;
     const { userId }: AuthResponse = await auth();
     if (!userId) return redirect('/sign-in');
-    console.log('chatId', chatId)
 
     const _chats = (await db.select().from(chats).where(eq(chats.userId, userId))) as DrizzleChat[];
     if (!_chats) return redirect('/');
-    if (!_chats.find((chat) => chat.id === parseInt(chatId))) return redirect('/');
+    if (!_chats.find((chat) => chat.id === (chatId))) return redirect('/');
 
-    const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
+    const currentChat = _chats.find((chat) => chat.id === (chatId));
     if (!currentChat) return redirect('/');
     // const isPro = await checkSubscription();
     const isPro = await checkPaystackSubscription();
     return (
       <ChatPageClient
-        chatId={parseInt(chatId)}
+        chatId={(chatId)}
         chats={_chats}
         currentChat={currentChat}
         isPro={isPro}

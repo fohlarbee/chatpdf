@@ -3,6 +3,7 @@ import { chats } from "@/lib/db/schema";
 import { loadAzureBlobIntoPinecone } from "@/lib/pinecone";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import {v4 as uuid4} from 'uuid';
 
 export async function POST(req: Request) {
     const {userId} = await auth();
@@ -14,6 +15,7 @@ export async function POST(req: Request) {
         const {fileName, fileKey, pdfUrl} = body;
          await loadAzureBlobIntoPinecone(fileName);  
          const chatId = await db.insert(chats).values({
+            id: uuid4(),
             fileKey,
             pdfName: fileName,
             pdfUrl,

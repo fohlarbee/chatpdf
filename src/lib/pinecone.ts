@@ -48,7 +48,6 @@ export async function loadAzureBlobIntoPinecone(fileName: string){
     const pinconeIndex =  pc.index('chatpdf', process.env.PINECONE_HOSTNAME);
 
     const namespace = convertToAscii(fileName);
-    console.log('namespace', namespace);
     await pinconeIndex.namespace(namespace).upsert(
      await Promise.all( vectors.map(async v => ({
         id: v.id,
