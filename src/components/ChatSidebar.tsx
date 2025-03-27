@@ -23,7 +23,7 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
     const [open, setOpen] = React.useState(false);
 
    
-    const handleDeleteChat = async (chatId: number) => {
+    const handleDeleteChat = async (chatId: string) => {
         try {
             setLoading(true);
             const res = await axios.delete('/api/chat', {data: {chatId}});
