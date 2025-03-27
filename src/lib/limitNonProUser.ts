@@ -10,7 +10,7 @@ export async function limitNonProUser() {
     const isProUser = await checkPaystackSubscription();
     if (!isProUser) {
         const noOfUploads = await db.$count(chats,eq(chats.userId, userId));
-        console.log(`Number of uploads: ${noOfUploads}`);
+        // console.log(`Number of uploads: ${noOfUploads}`);
         if (noOfUploads >= 3) { 
           return true;
         } 

@@ -12,7 +12,6 @@ const PaystackSubcriptionButton = ({isPro} :{isPro: boolean}) => {
             if (!isPro){
                 setIsLoading(true);
                 const res = await axios.post('/api/paystack') as {data:{paymentLink: string, reference: string}};
-                console.log('paystack res', res);
     
                 window.location.href = res.data.paymentLink;
             }

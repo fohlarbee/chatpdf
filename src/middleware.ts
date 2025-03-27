@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
 
 // Define the public routes
 const isPublicRoute = createRouteMatcher([
-  '/api/webhook', // Add your public route(s) here
+  '/api/webhook', 'api/paystack/webhook',// Add your public route(s) here
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

@@ -6,6 +6,8 @@ import { eq } from 'drizzle-orm';
 import { getContext } from '@/lib/context';
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
+import {v4 as uuid4} from 'uuid';
+
 
 // export const runtime = 'edge';
    
@@ -61,6 +63,7 @@ export async function POST(req: Request){
 
                   // save user message to db
                  await db.insert(_messages).values({
+                    id: uuid4(),
                     chatId,
                     content: lastMessage.content,
                     role: 'user',
@@ -70,6 +73,7 @@ export async function POST(req: Request){
                   // save ai message to db
 
                  await db.insert(_messages).values({
+                    id: uuid4(),
                     chatId,
                     content: aiResponse,
                     role: 'system',

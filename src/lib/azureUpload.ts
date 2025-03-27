@@ -1,8 +1,7 @@
 import { BlobServiceClient,  } from '@azure/storage-blob';
 import axios from 'axios';
-const AZURE_STORAGE_ACCOUNT_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME as string;
-const AZURE_STORAGE_CONTAINER_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME as string;
-
+const NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME as string;
+const NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME as string;
 
 const getSASToken = async (fileName: string) => {
   const response = await axios.post('/api/sastoken', { fileName });
@@ -21,12 +20,12 @@ const uploadPdfToAzure = async (arrayBuffer: ArrayBuffer, fileName: string): Pro
 
       const sasToken = await getSASToken(sanitizedFileName);
       const blobServiceClient = new BlobServiceClient(
-              `https://${AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net?${sasToken}`,
+              `https://${NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net?${sasToken}`,
             );
         
-            // const containerName = AZURE_STORAGE_CONTAINER_NAME;
+            // const containerName = NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME;
             const containerClient = blobServiceClient.getContainerClient(
-              AZURE_STORAGE_CONTAINER_NAME
+              NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME
             );
         
             // const blobName = sanitizedFileName;
@@ -45,9 +44,9 @@ const uploadPdfToAzure = async (arrayBuffer: ArrayBuffer, fileName: string): Pro
         
     } catch (error) {
         if (error instanceof Error) {
-            console.error(`Error uploading file: ${error.message}`);
+            console.error(`Na the error be this: ${error.message}`);
         } else {
-            console.error('Error uploading file:', error);
+            console.error('Na the error be this:', error);
         }
     }
 };
