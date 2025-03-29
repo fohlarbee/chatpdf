@@ -7,7 +7,7 @@ import path from 'path';
 
 
 
-const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING as string;
+const NEXT_PUBLIC_AZURE_STORAGE_CONNECTION_STRING = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONNECTION_STRING as string;
 const NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME = process.env.NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME as string;
 async function streamToBuffer(readableStream: NodeJS.ReadableStream): Promise<Buffer> {
     return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ async function streamToBuffer(readableStream: NodeJS.ReadableStream): Promise<Bu
 
 export async function downloadFromAzure(fileName: string): Promise<string | void> {
     try {
-         const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+         const blobServiceClient = BlobServiceClient.fromConnectionString(NEXT_PUBLIC_AZURE_STORAGE_CONNECTION_STRING);
          const containerClient = blobServiceClient.getContainerClient(NEXT_PUBLIC_AZURE_STORAGE_CONTAINER_NAME);
          const blobClient = containerClient.getBlobClient(fileName);
      
