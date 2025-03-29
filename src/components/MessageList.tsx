@@ -14,7 +14,7 @@ const MessageList = ({messages, isLoading}: {messages: Message[], isLoading: boo
         No messages</div>
 
   return (
-    <div className='flex flex-col gap-2 px-4 mb-1 z-20'>
+    <div className='flex flex-col gap-2 px-4 mb-14 z-20'>
         {messages.map((m) => {
             return (
                 <div key={m.id}

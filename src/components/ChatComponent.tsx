@@ -41,22 +41,22 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: str
   },[messages])
 
   return (
-    <div className='relative overflow-scroll h-screen' id='message-container'>
+    <div className='relative overflow-hidden h-screen' id='message-container'>
         {/* header */}
-        <div className="sticky top-0 inset-x-0 p-2 bg-[#eee] h-fit flex flex-row z-50 border-b-4 shadow-lg border border-opacity-5">
+        <div className="   p-2 bg-[#eee] h-fit flex flex-row z-50 border-b-4 shadow-lg border border-opacity-5">
               <AlignJustify className='ml-1 cursor-pointer md:hidden'
               onClick={handleSideBar}
               />
               <h3 className='sticky text-xl font-bold ml-2 w-full  md:text-center'>Chat</h3>
         </div>
-        <div className='overflow-scroll h-screen'>
+        <div className='overflow-scroll w-full h-screen max-h-svh'> 
           <MessageList messages={messages} isLoading={isLoading}/>
 
          
 
         </div>
        
-        <div className='sticky h-fit z-50 inset-x-0 bottom-0 mb-1 w-full p-2 py-4 bg-[#fff] flex flex-row'>
+        <div className='fixed z-500 inset-x-0 bottom-0 mb-1 w-full p-2 py-4 bg-[#fff] border-t-1 shadow-lg border border-opacity-100'>
           <form onSubmit={handleSubmit}
             className={`w-full flex`} >
               {/* <div className="flex absolute"> */}

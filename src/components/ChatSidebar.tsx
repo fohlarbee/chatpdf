@@ -59,7 +59,7 @@ const ChatSidebar = ({chats, chatId, isPro}: Props) => {
                     </DialogFooter>
               </DialogContent>
           </Dialog>
-    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 sticky z-500'>
+    <div className='w-full h-screen p-4 text-gray-200 bg-gray-900 sticky z-500 '>
         <Link href='/'>
         <Button className='w-full border border-[#fff] border-dashed mb-4'>
             <PlusCircle className='mr-2 w-4 h-4'/>
