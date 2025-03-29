@@ -41,7 +41,7 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: str
   },[messages])
 
   return (
-    <div className='relative max-h-screen h-screen overflow-scroll' id='message-container'>
+    <div className='relative overflow-scroll h-screen' id='message-container'>
         {/* header */}
         <div className="sticky top-0 inset-x-0 p-2 bg-[#eee] h-fit flex flex-row z-50 border-b-4 shadow-lg border border-opacity-5">
               <AlignJustify className='ml-1 cursor-pointer md:hidden'
@@ -49,30 +49,35 @@ const ChatComponent = ({chatId, setSidebarVisible, sidebarVisible}: {chatId: str
               />
               <h3 className='sticky text-xl font-bold ml-2 w-full  md:text-center'>Chat</h3>
         </div>
-
-        {/* messages list */}
-        <div className=''>
+        <div className='overflow-scroll h-screen'>
           <MessageList messages={messages} isLoading={isLoading}/>
 
          
 
         </div>
-        <form onSubmit={handleSubmit}
-          className={`sticky z-50 overflow-hidden sm:fixed md:sticky md:z-50 bottom-2 mb-1 inset-x-0 p-2 py-4 bg-[#fff]`} >
-            <div className="flex">
-                <Input
-              value={input}
-              onChange={handleInputChange}
-              placeholder='Ask any question...'
-              className='w-full'
-              />
-              <Button
-            className='bg-blue-600 ml-2'
-              >
-              <Send className='h-4 w-4'/>
-              </Button>
-            </div>
-          </form>
+       
+        <div className='sticky h-fit z-50 inset-x-0 bottom-0 mb-1 w-full p-2 py-4 bg-[#fff] flex flex-row'>
+          <form onSubmit={handleSubmit}
+            className={`w-full flex`} >
+              {/* <div className="flex absolute"> */}
+                  <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder='Ask any question...'
+                className='w-full'
+                />
+                <Button
+              className='bg-green-600 ml-2'
+                >
+                <Send className='h-4 w-4'/>
+                </Button>
+              {/* </div> */}
+            </form>
+        </div>
+
+        {/* messages list */}
+        
+        
        
     </div>
   )

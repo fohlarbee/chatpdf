@@ -14,18 +14,19 @@ const MessageList = ({messages, isLoading}: {messages: Message[], isLoading: boo
         No messages</div>
 
   return (
-    <div className='flex flex-col gap-2 px-4 mb-20 z-20'>
+    <div className='flex flex-col gap-2 px-4 mb-1 z-20'>
         {messages.map((m) => {
             return (
                 <div key={m.id}
-                    className={cn('flex', {
+                    className={cn('flex mt-2', {
                         'justify-end pl-10': m.role === 'user',
-                        'justify-start pr-10': m.role === 'assistant'
+                        'justify-start pr-10 ': m.role === 'assistant'
                     })}
                     >
                         <div 
                         className={cn('rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10', {
-                            'bg-blue-600 text-[#fff]' : m.role === 'user', 
+                            'bg-green-600 text-[#fff]' : m.role === 'user', 
+                            // 'bg-red-900 text-[#fff]' : m.role === 'assistant',
                         })}
                         >
                             <p>{m.content}</p>
