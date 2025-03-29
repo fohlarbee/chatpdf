@@ -15,6 +15,13 @@
       "when": 1742234263218,
       "tag": "0001_talented_boom_boom",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743244106640,
+      "tag": "0002_windy_dark_beast",
+      "breakpoints": true
     }
   ]
 }
