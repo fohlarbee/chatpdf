@@ -6,23 +6,23 @@ ChatPDF is a Next.js application that lets users chat with their PDF documents u
 
 Clone the repository and install dependencies:
 
-\`\`\`bash
+```bash
 git clone https://github.com/fohlarbee/chatpdf.git
 cd chatpdf
 npm install
-\`\`\`
+```
 
 Run the development server:
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
 ## Environment Variables
 
-\`\`\`env
+```env
 NEXT_PUBLIC_CLERK_FRONTEND_API=<your-clerk-frontend-api>
 CLERK_API_KEY=<your-clerk-api-key>
 STRIPE_SECRET_KEY=<your-stripe-secret-key>
@@ -30,7 +30,7 @@ STRIPE_WEBHOOK_SECRET=<your-stripe-webhook-secret>
 GEMINI_API_KEY=<your-gemini-api-key>
 PINECONE_API_KEY=<your-pinecone-api-key>
 PINECONE_ENVIRONMENT=<your-pinecone-environment>
-\`\`\`
+```
 
 ## Features
 
@@ -41,12 +41,12 @@ PINECONE_ENVIRONMENT=<your-pinecone-environment>
 
 ## Database Migrations
 
-\`\`\`bash
+```bash
 npx drizzle-kit studio
 npx drizzle-kit push
 npx drizzle-kit generate
 npx drizzle-kit migrate
-\`\`\`
+```
 
 ## Deploy
 
@@ -59,4 +59,3 @@ Contributions are welcome — open an issue or submit a pull request.
 ## License
 
 MIT
-\`\`\`
